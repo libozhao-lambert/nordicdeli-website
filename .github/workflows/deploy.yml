@@ -1,0 +1,56 @@
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Build for Cloudflare Workers
+        run: npx opennextjs-cloudflare build
+        env:
+          NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_CONTACT: ${{ vars.NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_CONTACT }}
+          NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_RESERVATIONS: ${{ vars.NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_RESERVATIONS }}
+          NEXT_PUBLIC_SITE_URL: https://nordicdeli.anchornetwork.ai
+
+      - name: Deploy to production (main branch)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: "33739f6db67284dfeea613414f006b2f"
+          command: deploy --keep-vars
+
+      - name: Upload preview version (pull request)
+        if: github.event_name == 'pull_request'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: "33739f6db67284dfeea613414f006b2f"
+          command: versions upload

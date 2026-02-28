@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-cormorant: "Cormorant Garamond", Georgia, serif;
+    --font-inter: "Inter", system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream font-body text-charcoal-800 antialiased;
+  }
+
+  /* Focus ring — WCAG 2.1 AA compliant */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-forest-600 ring-0;
+  }
+
+  /* Heading defaults */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  /* Skip-to-content for accessibility */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50
+           focus:rounded-lg focus:bg-forest-600 focus:px-4 focus:py-2 focus:text-white focus:no-underline;
+  }
+
+  /* Prose styles for MDX content */
+  .prose-nordic {
+    @apply text-charcoal-700 leading-relaxed;
+  }
+
+  .prose-nordic h1 {
+    @apply text-display-md font-display text-charcoal-800 mb-6;
+  }
+
+  .prose-nordic h2 {
+    @apply text-display-sm font-display text-charcoal-800 mt-10 mb-4;
+  }
+
+  .prose-nordic p {
+    @apply mb-4;
+  }
+
+  .prose-nordic a {
+    @apply text-forest-600 underline underline-offset-2 hover:text-forest-800;
+  }
+
+  .prose-nordic ul {
+    @apply list-disc pl-6 mb-4 space-y-1;
+  }
+
+  .prose-nordic ol {
+    @apply list-decimal pl-6 mb-4 space-y-1;
+  }
+}
+
+@layer utilities {
+  /* Texture overlay */
+  .bg-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nordicdeli-website",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2024-12-30",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "nordicdeli-website"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "RESERVATIONS_KV",
+      "id": "5c6dcba1a02d420bbcffbf1058be28e0",
+      "preview_id": "6d9313eb344745cca0b115b364c70abd"
+    },
+    {
+      "binding": "SETTINGS_KV",
+      "id": "272f376c8d9d4739a46770a8161476b5",
+      "preview_id": "d0de7082293e4c4d96551ebcc5476f13"
+    }
+  ],
+  // Rate limiting is implemented via KV (RESERVATIONS_KV) to support free Workers plan
+  // and allow flexible window sizes (10min for reservations, 1h for phone, 5min for contact)
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://nordicdeli.anchornetwork.ai",
+    "NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_CONTACT": "0x4AAAAAACjCz7rE2fPnKhfi",
+    "NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_RESERVATIONS": "0x4AAAAAACjC2UNwmEjDXFE1",
+    "CF_WEB_ANALYTICS_TOKEN": "6ed43d34957a49fcb90ec8e43f7db523"
+  }
+  // Secrets (set via `wrangler secret put` — never in this file):
+  // CF_TURNSTILE_SECRET_KEY_CONTACT
+  // CF_TURNSTILE_SECRET_KEY_RESERVATIONS
+  // RESEND_API_KEY
+  // HMAC_SECRET
+}
