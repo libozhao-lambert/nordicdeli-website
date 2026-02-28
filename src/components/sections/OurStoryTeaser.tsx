@@ -41,7 +41,7 @@ export function OurStoryTeaser() {
         </p>
 
         {/* CTA */}
-        <Button href="/about" variant="outline" className="border-white text-white hover:bg-white hover:text-forest-800">
+        <Button href="/about" variant="primary">
           Read Our Story
         </Button>
       </div>
