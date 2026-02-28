@@ -45,7 +45,7 @@ export function Navbar() {
               aria-label="The Nordic Deli — return to homepage"
             >
               <Image
-                src="/images/assets/logo/logo-circle.svg"
+                src="/images/logo/logo-circle.svg"
                 alt=""
                 width={40}
                 height={40}

@@ -39,7 +39,7 @@ export function Footer() {
         <div>
           <Link href="/" className="group inline-flex items-center gap-3 mb-4">
             <Image
-              src="/images/assets/logo/logo-circle.svg"
+              src="/images/logo/logo-circle.svg"
               alt=""
               width={44}
               height={44}
