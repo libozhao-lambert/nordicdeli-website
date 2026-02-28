@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const NAP = {
@@ -36,7 +37,15 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Brand + NAP */}
         <div>
-          <Link href="/" className="group block mb-4">
+          <Link href="/" className="group inline-flex items-center gap-3 mb-4">
+            <Image
+              src="/images/assets/logo/logo-circle.svg"
+              alt=""
+              width={44}
+              height={44}
+              className="shrink-0"
+              aria-hidden="true"
+            />
             <span className="font-display text-2xl text-white group-hover:text-birch-400 transition-colors">
               The Nordic Deli
             </span>

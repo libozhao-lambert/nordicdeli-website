@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
@@ -40,14 +41,25 @@ export function Navbar() {
             {/* Logo */}
             <Link
               href="/"
-              className="flex flex-col leading-none group"
+              className="flex items-center gap-3 group"
               aria-label="The Nordic Deli — return to homepage"
             >
-              <span className="font-display text-xl lg:text-2xl text-charcoal-800 group-hover:text-forest-600 transition-colors">
-                The Nordic Deli
-              </span>
-              <span className="font-body text-xs text-charcoal-600 tracking-widest uppercase">
-                Hope Island
+              <Image
+                src="/images/assets/logo/logo-circle.svg"
+                alt=""
+                width={40}
+                height={40}
+                className="shrink-0"
+                priority
+                aria-hidden="true"
+              />
+              <span className="flex flex-col leading-none">
+                <span className="font-display text-xl lg:text-2xl text-charcoal-800 group-hover:text-forest-600 transition-colors">
+                  The Nordic Deli
+                </span>
+                <span className="font-body text-xs text-charcoal-600 tracking-widest uppercase">
+                  Hope Island
+                </span>
               </span>
             </Link>
 
