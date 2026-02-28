@@ -142,7 +142,7 @@ export default async function EventPage({ params }: EventPageProps) {
                   confirm your reservation.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button href="/contact" variant="primary">
+                  <Button href="/contact" variant="outline">
                     Enquire Now
                   </Button>
                   <Button href="tel:+61420960821" variant="ghost" external>
@@ -193,7 +193,7 @@ export default async function EventPage({ params }: EventPageProps) {
                 </div>
 
                 <div className="mt-6">
-                  <Button href="/contact" variant="primary" className="w-full justify-center">
+                  <Button href="/contact" variant="outline" className="w-full justify-center">
                     Book Your Place
                   </Button>
                 </div>

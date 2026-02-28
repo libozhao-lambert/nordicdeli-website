@@ -118,7 +118,7 @@ export default function AboutPage() {
               Come experience it for yourself.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button href="/reserve" variant="primary" size="lg">
+              <Button href="/reserve" variant="outline" size="lg">
                 Reserve a Table
               </Button>
               <Button href="/menu" variant="ghost" size="lg">

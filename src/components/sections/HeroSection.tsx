@@ -47,11 +47,7 @@ export function HeroSection() {
           <Button href="/menu" variant="secondary" size="lg">
             View Menu
           </Button>
-          <Button
-            href="/reserve"
-            size="lg"
-            className="bg-white text-forest-800 hover:bg-cream border-0 font-semibold"
-          >
+          <Button href="/reserve" size="lg">
             Reserve a Table →
           </Button>
         </div>

@@ -4,7 +4,7 @@ import { clsx } from "clsx";
 
 const variants = {
   primary:
-    "bg-forest-600 text-white hover:bg-forest-800 focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-2",
+    "bg-cream text-forest-800 hover:bg-forest-100 focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-2",
   secondary:
     "bg-birch-400 text-charcoal-800 hover:bg-birch-600 hover:text-white focus-visible:ring-2 focus-visible:ring-birch-400 focus-visible:ring-offset-2",
   ghost:
@@ -40,7 +40,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const classes = clsx(
-      "inline-flex items-center justify-center font-body font-medium transition-all duration-200",
+      "inline-flex items-center justify-center font-body font-semibold transition-all duration-200",
       "disabled:opacity-50 disabled:cursor-not-allowed",
       variants[variant],
       sizes[size],

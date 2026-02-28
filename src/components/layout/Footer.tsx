@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 
 const NAP = {
   name: "The Nordic Deli",
@@ -123,12 +124,9 @@ export function Footer() {
               6:30am – 2:30pm
             </p>
           </div>
-          <Link
-            href="/reserve"
-            className="inline-flex items-center px-5 py-2.5 bg-birch-400 text-charcoal-800 font-medium rounded-xl hover:bg-birch-600 hover:text-white transition-colors text-sm font-body"
-          >
+          <Button href="/reserve" variant="primary">
             Reserve a Table →
-          </Link>
+          </Button>
         </div>
       </div>
 

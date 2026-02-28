@@ -103,7 +103,7 @@ export default function FAQPage() {
               We&apos;re always happy to help. Reach out via our contact form or pop
               in to see us at Hope Island.
             </p>
-            <Button href="/contact" variant="primary">
+            <Button href="/contact" variant="outline">
               Get in Touch
             </Button>
           </div>

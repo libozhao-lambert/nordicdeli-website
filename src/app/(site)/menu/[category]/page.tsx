@@ -151,7 +151,7 @@ export default async function CategoryMenuPage({ params }: CategoryPageProps) {
               Ready to visit? Reserve your table or explore the full menu.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button href="/reserve" variant="primary">
+              <Button href="/reserve" variant="outline">
                 Reserve a Table
               </Button>
               <Button href="/menu" variant="ghost">
