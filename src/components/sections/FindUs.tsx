@@ -6,7 +6,7 @@ const BUSINESS = {
   email: "admin@thenordicdeli.com",
   hours: "Daily — 6:30am to 2:30pm",
   mapsEmbed:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3524.97!2d153.3721!3d-27.8613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDUxJzQwLjciUyAxNTPCsDIyJzE5LjYiRQ!5e0!3m2!1sen!2sau!4v1000000000000",
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3523.8!2d153.3721!3d-27.8613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sShop+15%2F10+Santa+Barbara+Rd%2C+Hope+Island+QLD+4212!5e0!3m2!1sen!2sau!4v1",
   mapsUrl:
     "https://maps.google.com/?q=Shop+15%2F10+Santa+Barbara+Rd,+Hope+Island+QLD+4212",
 };
