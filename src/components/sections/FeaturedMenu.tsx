@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Image from "next/image";
 import { FEATURED_ITEMS } from "@/data/menu";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -11,8 +11,22 @@ const DIETARY_COLORS: Record<string, "green" | "birch" | "mist"> = {
   DF: "mist",
 };
 
+const ITEM_IMAGES: Record<string, { src: string; alt: string }> = {
+  "avo-toast": {
+    src: "/images/home/treats/home-treats-avocado-toast.webp",
+    alt: "Avocado Toast on grilled sourdough",
+  },
+  "chicken-club": {
+    src: "/images/home/treats/home-treats-chicken-club-sandwich.webp",
+    alt: "Chicken Club Sandwich on Turkish bread",
+  },
+  kanelsnurre: {
+    src: "/images/home/treats/home-treats-kanelsnurre.webp",
+    alt: "Nordic Kanelsnurre cinnamon swirl",
+  },
+};
+
 export function FeaturedMenu() {
-  // Show up to 3 featured items
   const featured = FEATURED_ITEMS.slice(0, 3);
 
   return (
@@ -36,55 +50,53 @@ export function FeaturedMenu() {
 
         {/* Featured items */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          {featured.map((item) => (
-            <div
-              key={item.id}
-              className="bg-cream rounded-2xl p-6 hover:shadow-hygge transition-shadow duration-300 group"
-            >
-              {/* Placeholder food icon */}
+          {featured.map((item) => {
+            const img = ITEM_IMAGES[item.id];
+            return (
               <div
-                className="w-full aspect-[3/2] rounded-xl mb-5 flex items-center justify-center text-5xl bg-gradient-to-br from-birch-200 to-mist"
-                aria-hidden="true"
+                key={item.id}
+                className="bg-cream rounded-2xl overflow-hidden hover:shadow-hygge transition-shadow duration-300 group"
               >
-                {item.id.includes("kanelsnurre")
-                  ? "🥐"
-                  : item.id.includes("carrot")
-                  ? "🍰"
-                  : "🎂"}
-              </div>
-
-              {/* Content */}
-              <div className="flex items-start justify-between gap-2 mb-2">
-                <h3 className="font-display text-xl text-charcoal-800 group-hover:text-forest-600 transition-colors">
-                  {item.name}
-                </h3>
-                {item.price && (
-                  <span className="shrink-0 font-body font-semibold text-forest-600">
-                    ${item.price}
-                  </span>
-                )}
-              </div>
-
-              {item.description && (
-                <p className="text-sm text-charcoal-600 leading-relaxed mb-3">
-                  {item.description}
-                </p>
-              )}
-
-              {item.tags && item.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {item.tags.map((tag) => (
-                    <Badge
-                      key={tag}
-                      variant={DIETARY_COLORS[tag] ?? "mist"}
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
+                {/* Image — 1:1 card */}
+                <div className="relative w-full aspect-square overflow-hidden">
+                  {img ? (
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-birch-200 to-mist" />
+                  )}
                 </div>
-              )}
-            </div>
-          ))}
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="font-display text-xl text-charcoal-800 group-hover:text-forest-600 transition-colors mb-2">
+                    {item.name}
+                  </h3>
+
+                  {item.description && (
+                    <p className="text-sm text-charcoal-600 leading-relaxed mb-3">
+                      {item.description}
+                    </p>
+                  )}
+
+                  {item.tags && item.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {item.tags.map((tag) => (
+                        <Badge key={tag} variant={DIETARY_COLORS[tag] ?? "mist"}>
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         {/* CTA */}

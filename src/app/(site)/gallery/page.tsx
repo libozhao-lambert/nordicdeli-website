@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
@@ -13,61 +15,38 @@ export const metadata: Metadata = {
   },
 };
 
-// Placeholder gallery items with colour swatches and labels
-const placeholderItems = [
+const JOURNAL_ARTICLES = [
   {
-    label: "Kanelsnurre",
-    sub: "Our signature cinnamon swirl",
-    bg: "bg-birch-200",
-    text: "text-birch-800",
+    src: "/images/journal/journal-01-morning.webp",
+    alt: "Morning ritual at The Nordic Deli",
+    category: "Rituals",
+    title: "The Art of the Nordic Morning",
+    description:
+      "From the first grind of coffee to warm pastries fresh from the oven — how we begin each day with intention and quiet care.",
   },
   {
-    label: "Morning Brew",
-    sub: "Artisan coffee, Nordic style",
-    bg: "bg-forest-100",
-    text: "text-forest-800",
+    src: "/images/journal/journal-02-food.webp",
+    alt: "Nordic food crafted with honest ingredients",
+    category: "Kitchen Stories",
+    title: "Ingredients Tell the Story",
+    description:
+      "Every dish starts with honest, seasonal produce. We share what inspires our kitchen and the Scandinavian flavours we love.",
   },
   {
-    label: "Nordic Porridge",
-    sub: "Warm & comforting",
-    bg: "bg-cream-100",
-    text: "text-charcoal-700",
+    src: "/images/journal/journal-03-life.webp",
+    alt: "Community life at The Nordic Deli",
+    category: "Community",
+    title: "Life at The Deli",
+    description:
+      "Regulars become friends, strangers become neighbours. Hope Island has given us a home, and we give it back in every cup we pour.",
   },
   {
-    label: "Drømmekage",
-    sub: "Our dream cake",
-    bg: "bg-mist",
-    text: "text-charcoal-700",
-  },
-  {
-    label: "The Deli",
-    sub: "Our Hope Island home",
-    bg: "bg-forest-50",
-    text: "text-forest-800",
-  },
-  {
-    label: "Open Sandwiches",
-    sub: "Smørrebrød Scandinavian style",
-    bg: "bg-birch-200",
-    text: "text-birch-800",
-  },
-  {
-    label: "Hygge Moments",
-    sub: "Warmth & connection",
-    bg: "bg-cream-200",
-    text: "text-charcoal-700",
-  },
-  {
-    label: "Fresh Pastries",
-    sub: "Baked every morning",
-    bg: "bg-forest-100",
-    text: "text-forest-800",
-  },
-  {
-    label: "Açaí Bowl",
-    sub: "A Nordic-Australian fusion",
-    bg: "bg-mist",
-    text: "text-charcoal-700",
+    src: "/images/journal/journal-04-welcome.webp",
+    alt: "Welcome to The Nordic Deli",
+    category: "Hygge",
+    title: "Welcome to Hygge",
+    description:
+      "Hygge is not just a word — it is a feeling. A warm room, good food, and people you love. This is what we built The Nordic Deli for.",
   },
 ];
 
@@ -90,67 +69,78 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Coming Soon notice */}
-      <section className="bg-birch-200/30 border-b border-birch-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-center gap-3">
-          <span className="text-birch-800 text-sm font-medium">
-            📸 Full photo gallery coming soon — beautiful imagery is on its way!
-          </span>
+      {/* Gallery — masonry with lightbox */}
+      <div className="bg-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+          <GalleryGrid />
         </div>
-      </section>
+      </div>
 
-      {/* Gallery grid */}
-      <div className="bg-cream min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6">
-            {placeholderItems.map((item, i) => (
-              <div
+      {/* Nordic Journal */}
+      <section className="bg-white py-20 md:py-28" aria-labelledby="journal-heading">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section header */}
+          <div className="mb-14 max-w-xl">
+            <p className="font-body text-forest-600 text-sm tracking-widest uppercase mb-3">
+              Stories from the Deli
+            </p>
+            <h2
+              id="journal-heading"
+              className="font-display text-display-md text-charcoal-800 mb-4"
+            >
+              The Nordic Journal
+            </h2>
+            <p className="text-charcoal-600 leading-relaxed">
+              A visual diary of life at The Nordic Deli — recipes, behind-the-scenes
+              moments, seasonal events, and the Scandinavian traditions that inspire
+              everything we do.
+            </p>
+          </div>
+
+          {/* Article cards — one image per article, landscape preferred */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 mb-12">
+            {JOURNAL_ARTICLES.map((article, i) => (
+              <article
                 key={i}
-                className={`${item.bg} aspect-square rounded-2xl flex flex-col items-center justify-center p-6 text-center`}
+                className="group flex flex-col rounded-2xl overflow-hidden bg-cream hover:shadow-hygge transition-shadow duration-300"
               >
-                <p className={`font-display text-xl ${item.text} font-semibold leading-snug`}>
-                  {item.label}
-                </p>
-                <p className={`${item.text} opacity-70 text-sm mt-1`}>
-                  {item.sub}
-                </p>
-              </div>
+                {/* Image */}
+                <div className="relative w-full aspect-[3/2] overflow-hidden">
+                  <Image
+                    src={article.src}
+                    alt={article.alt}
+                    fill
+                    className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                </div>
+
+                {/* Text */}
+                <div className="flex flex-col flex-1 p-6">
+                  <p className="font-body text-forest-600 text-xs tracking-widest uppercase mb-2">
+                    {article.category}
+                  </p>
+                  <h3 className="font-display text-xl text-charcoal-800 group-hover:text-forest-600 transition-colors mb-2 leading-snug">
+                    {article.title}
+                  </h3>
+                  <p className="text-sm text-charcoal-600 leading-relaxed flex-1">
+                    {article.description}
+                  </p>
+                  <span className="mt-4 inline-block text-xs font-body text-charcoal-400 tracking-wide">
+                    Coming Soon
+                  </span>
+                </div>
+              </article>
             ))}
           </div>
 
-          {/* Journal / blog concept */}
-          <section className="mt-20 grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <p className="font-body text-birch-600 text-sm tracking-widest uppercase mb-3">
-                Coming Soon
-              </p>
-              <h2 className="font-display text-display-sm text-charcoal-800 mb-4">
-                The Nordic Journal
-              </h2>
-              <p className="text-charcoal-600 leading-relaxed mb-4">
-                We are building a visual diary of life at The Nordic Deli — a
-                place to share recipes, behind-the-scenes moments, seasonal
-                events, and stories about the Scandinavian traditions that
-                inspire everything we do.
-              </p>
-              <p className="text-charcoal-600 leading-relaxed mb-6">
-                Follow along as we photograph our pastries fresh from the oven,
-                document special events like our Midsommar feast, and capture
-                the everyday Hygge of our café community.
-              </p>
-              <Button href="/contact" variant="outline">
-                Stay in the Loop
-              </Button>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-forest-100 rounded-2xl aspect-[3/4]" />
-              <div className="bg-birch-200 rounded-2xl aspect-[3/4] mt-8" />
-              <div className="bg-mist rounded-2xl aspect-[3/4]" />
-              <div className="bg-cream-200 rounded-2xl aspect-[3/4] mt-8" />
-            </div>
-          </section>
+          <div className="text-center">
+            <Button href="/contact" variant="outline">
+              Stay in the Loop
+            </Button>
+          </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

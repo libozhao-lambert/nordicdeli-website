@@ -79,7 +79,6 @@ export const MENU: MenuCategory[] = [
               "Creamy oats with cinnamon, brown sugar, seasonal berries, and cream",
             price: 14,
             tags: ["VG"],
-            featured: true,
           },
         ],
       },
@@ -91,9 +90,10 @@ export const MENU: MenuCategory[] = [
             id: "avo-toast",
             name: "Avocado Toast",
             description:
-              "Smashed avo, cherry tomato, dukkah, lemon, sourdough",
+              "Smashed avocado on grilled sourdough, crowned with cherry tomatoes, dukkah, lemon zest and a drizzle of cold-pressed olive oil",
             price: 18,
             tags: ["VG", "V", "DF"],
+            featured: true,
           },
         ],
       },
@@ -138,8 +138,10 @@ export const MENU: MenuCategory[] = [
           {
             id: "chicken-club",
             name: "Chicken Club Sandwich",
-            description: "Grilled chicken, bacon, lettuce, tomato, aioli",
+            description:
+              "Toasted Turkish bread layered with grilled chicken breast, crispy bacon, fresh cos lettuce, ripe tomato and house-made aioli",
             price: 18,
+            featured: true,
           },
           {
             id: "veggie-bagel",
@@ -227,7 +229,6 @@ export const MENU: MenuCategory[] = [
             description: "Moist and perfectly spiced with cream cheese frosting",
             price: 7,
             tags: ["VG"],
-            featured: true,
           },
           {
             id: "droemmekage",
@@ -236,7 +237,6 @@ export const MENU: MenuCategory[] = [
               "Classic Danish dream cake with toasted coconut topping",
             price: 7,
             tags: ["VG"],
-            featured: true,
           },
           {
             id: "scone",
