@@ -57,7 +57,7 @@ export async function fetchEventbriteEvents(): Promise<EventData[]> {
         `?expand=ticket_availability,venue&status=live,completed,started,ended`,
       {
         headers: { Authorization: `Bearer ${token}` },
-        cache: "no-store",
+        cache: "force-cache",
       }
     );
   } catch (err) {
