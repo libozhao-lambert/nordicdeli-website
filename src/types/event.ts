@@ -10,6 +10,7 @@ export interface EventFrontmatter {
   price?: number;
   seats?: number;
   status: "available" | "sold-out" | "cancelled" | "past";
+  eventbriteUrl?: string; // Eventbrite ticket purchase URL
 }
 
 export interface EventData extends EventFrontmatter {

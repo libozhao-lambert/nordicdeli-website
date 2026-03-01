@@ -2,8 +2,8 @@ import { getUpcomingEvents } from "@/lib/events";
 import { EventCard } from "@/components/events/EventCard";
 import { Button } from "@/components/ui/Button";
 
-export function UpcomingEvents() {
-  const events = getUpcomingEvents(2);
+export async function UpcomingEvents() {
+  const events = await getUpcomingEvents(2);
 
   return (
     <section

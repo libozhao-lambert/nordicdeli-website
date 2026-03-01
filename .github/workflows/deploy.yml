@@ -38,6 +38,7 @@ jobs:
           NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_CONTACT: ${{ vars.NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_CONTACT }}
           NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_RESERVATIONS: ${{ vars.NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_RESERVATIONS }}
           NEXT_PUBLIC_SITE_URL: https://nordicdeli.anchornetwork.ai
+          EVENTBRITE_PRIVATE_TOKEN: ${{ secrets.EVENTBRITE_PRIVATE_TOKEN }}
 
       - name: Deploy to production (main branch)
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'

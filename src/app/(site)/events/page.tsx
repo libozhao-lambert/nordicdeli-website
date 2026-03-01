@@ -15,8 +15,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function EventsPage() {
-  const allEvents = getAllEvents();
+export default async function EventsPage() {
+  const allEvents = await getAllEvents();
   const today = new Date().toISOString().slice(0, 10);
 
   const upcomingEvents = allEvents

@@ -4,7 +4,7 @@ import { getAllEvents } from "@/lib/events";
 const BASE_URL = "https://nordicdeli.anchornetwork.ai";
 const MENU_CATEGORIES = ["breakfast", "lunch", "extras"];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
     { url: `${BASE_URL}/menu`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
@@ -28,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   let eventRoutes: MetadataRoute.Sitemap = [];
   try {
-    const events = getAllEvents();
+    const events = await getAllEvents();
     eventRoutes = events.map((event) => ({
       url: `${BASE_URL}/events/${event.slug}`,
       lastModified: new Date(),
@@ -36,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     }));
   } catch {
-    // gracefully handle if events directory not found
+    // gracefully handle if events cannot be fetched
   }
 
   return [...staticRoutes, ...categoryRoutes, ...eventRoutes];

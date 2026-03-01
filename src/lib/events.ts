@@ -2,63 +2,60 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import type { EventData, EventFrontmatter } from "@/types/event";
+import { fetchEventbriteEvents } from "./eventbrite";
 
 const EVENTS_DIR = path.join(process.cwd(), "src", "content", "events");
 
-/**
- * Reads all .mdx files from src/content/events/ and returns parsed EventData.
- * Sorted by date descending (newest first).
- */
-export function getAllEvents(): EventData[] {
+function readMdxEvents(): EventData[] {
   if (!fs.existsSync(EVENTS_DIR)) return [];
 
-  const files = fs
+  return fs
     .readdirSync(EVENTS_DIR)
-    .filter((f) => f.endsWith(".mdx") || f.endsWith(".md"));
+    .filter((f) => f.endsWith(".mdx") || f.endsWith(".md"))
+    .map((filename) => {
+      const raw = fs.readFileSync(path.join(EVENTS_DIR, filename), "utf-8");
+      const { data, content } = matter(raw);
+      return { ...(data as EventFrontmatter), content: content.trim() };
+    });
+}
 
-  const events: EventData[] = files.map((filename) => {
-    const filePath = path.join(EVENTS_DIR, filename);
-    const raw = fs.readFileSync(filePath, "utf-8");
-    const { data, content } = matter(raw);
+/**
+ * Returns all events from Eventbrite (primary) merged with local MDX files
+ * (fallback). Eventbrite events take priority — MDX events with a conflicting
+ * slug are skipped. Sorted by date descending (newest first).
+ */
+export async function getAllEvents(): Promise<EventData[]> {
+  const [ebEvents, mdxEvents] = await Promise.all([
+    fetchEventbriteEvents(),
+    Promise.resolve(readMdxEvents()),
+  ]);
 
-    return {
-      ...(data as EventFrontmatter),
-      content: content.trim(),
-    };
-  });
+  // Eventbrite takes priority; drop any MDX event whose slug collides
+  const ebSlugs = new Set(ebEvents.map((e) => e.slug));
+  const filteredMdx = mdxEvents.filter((e) => !ebSlugs.has(e.slug));
 
-  // Sort by date descending (newest first)
-  return events.sort((a, b) => {
-    if (a.date > b.date) return -1;
-    if (a.date < b.date) return 1;
-    return 0;
-  });
+  const all = [...ebEvents, ...filteredMdx];
+  return all.sort((a, b) => (a.date > b.date ? -1 : a.date < b.date ? 1 : 0));
 }
 
 /**
  * Retrieves a single event by its slug.
  * Returns null if not found.
  */
-export function getEventBySlug(slug: string): EventData | null {
-  const all = getAllEvents();
+export async function getEventBySlug(slug: string): Promise<EventData | null> {
+  const all = await getAllEvents();
   return all.find((e) => e.slug === slug) ?? null;
 }
 
 /**
  * Returns upcoming events (date >= today, status !== 'cancelled').
  * Sorted ascending (soonest first).
- * @param limit - Maximum number of events to return (default 3)
  */
-export function getUpcomingEvents(limit = 3): EventData[] {
-  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-
-  const upcoming = getAllEvents()
+export async function getUpcomingEvents(limit = 3): Promise<EventData[]> {
+  const today = new Date().toISOString().slice(0, 10);
+  const all = await getAllEvents();
+  return all
     .filter((e) => e.date >= today && e.status !== "cancelled")
-    .sort((a, b) => {
-      if (a.date < b.date) return -1;
-      if (a.date > b.date) return 1;
-      return 0;
-    });
-
-  return upcoming.slice(0, limit);
+    .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))
+    .slice(0, limit);
 }

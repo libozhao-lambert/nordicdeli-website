@@ -12,7 +12,7 @@ interface EventPageProps {
 }
 
 export async function generateStaticParams() {
-  const events = getAllEvents();
+  const events = await getAllEvents();
   return events.map((event) => ({ slug: event.slug }));
 }
 
@@ -20,7 +20,7 @@ export async function generateMetadata({
   params,
 }: EventPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const event = getEventBySlug(slug);
+  const event = await getEventBySlug(slug);
 
   if (!event) return { title: "Event Not Found" };
 
@@ -69,21 +69,21 @@ const statusConfig: Record<
 
 export default async function EventPage({ params }: EventPageProps) {
   const { slug } = await params;
-  const event = getEventBySlug(slug);
+  const event = await getEventBySlug(slug);
 
   if (!event) notFound();
 
   const schema = buildEventSchema(event);
   const statusInfo = statusConfig[event.status] ?? statusConfig.available;
-  const allEvents = getAllEvents();
-  const relatedEvents = allEvents
-    .filter((e) => e.slug !== slug)
-    .slice(0, 2);
+  const allEvents = await getAllEvents();
+  const relatedEvents = allEvents.filter((e) => e.slug !== slug).slice(0, 2);
 
-  // Parse content paragraphs (MDX is loaded as plain text here)
   const paragraphs = event.content
     .split(/\n\n+/)
     .filter((p) => p.trim().length > 0);
+
+  const canBook =
+    event.status === "available" && event.eventbriteUrl;
 
   return (
     <>
@@ -132,23 +132,50 @@ export default async function EventPage({ params }: EventPageProps) {
                 </p>
               ))}
 
+              {/* Booking section */}
               <div className="mt-10 pt-8 border-t border-mist">
-                <h2 className="font-display text-xl text-charcoal-800 mb-4">
-                  How to Book
-                </h2>
-                <p className="text-charcoal-600 mb-6">
-                  To secure your place at this event, please contact us via
-                  phone or email. Payment is required at time of booking to
-                  confirm your reservation.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button href="/contact" variant="outline">
-                    Enquire Now
-                  </Button>
-                  <Button href="tel:+61420960821" variant="ghost" external>
-                    Call +61 420 960 821
-                  </Button>
-                </div>
+                {canBook ? (
+                  <>
+                    <h2 className="font-display text-xl text-charcoal-800 mb-4">
+                      Ready to Join Us?
+                    </h2>
+                    <p className="text-charcoal-600 mb-6">
+                      Tickets are sold through Eventbrite. Your place is
+                      confirmed instantly once payment is complete.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <Button
+                        href={event.eventbriteUrl!}
+                        variant="primary"
+                        external
+                      >
+                        Get Tickets on Eventbrite
+                      </Button>
+                      <Button href="/contact" variant="ghost">
+                        Any Questions? Contact Us
+                      </Button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="font-display text-xl text-charcoal-800 mb-4">
+                      How to Book
+                    </h2>
+                    <p className="text-charcoal-600 mb-6">
+                      To secure your place at this event, please contact us via
+                      phone or email. Payment is required at time of booking to
+                      confirm your reservation.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <Button href="/contact" variant="outline">
+                        Enquire Now
+                      </Button>
+                      <Button href="tel:+61420960821" variant="ghost" external>
+                        Call +61 420 960 821
+                      </Button>
+                    </div>
+                  </>
+                )}
               </div>
             </article>
 
@@ -193,8 +220,13 @@ export default async function EventPage({ params }: EventPageProps) {
                 </div>
 
                 <div className="mt-6">
-                  <Button href="/contact" variant="outline" className="w-full justify-center">
-                    Book Your Place
+                  <Button
+                    href={event.eventbriteUrl ?? "/contact"}
+                    variant="outline"
+                    className="w-full justify-center"
+                    external={!!event.eventbriteUrl}
+                  >
+                    {event.eventbriteUrl ? "Get Tickets" : "Book Your Place"}
                   </Button>
                 </div>
               </div>
