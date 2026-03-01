@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { clsx } from "clsx";
 import { Badge } from "@/components/ui/Badge";
 import type { EventData } from "@/types/event";
@@ -47,6 +48,7 @@ export function EventCard({ event, className }: EventCardProps) {
     endTime,
     location,
     description,
+    image,
     price,
     seats,
     status,
@@ -65,13 +67,26 @@ export function EventCard({ event, className }: EventCardProps) {
         className
       )}
     >
-      {/* Colour band header */}
-      <div
-        className={clsx(
-          "h-2",
-          status === "available" ? "bg-forest-600" : "bg-mist-dark"
-        )}
-      />
+      {/* Event image or colour band */}
+      {image ? (
+        <div className="relative aspect-[16/9] overflow-hidden">
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        </div>
+      ) : (
+        <div
+          className={clsx(
+            "h-2",
+            status === "available" ? "bg-forest-600" : "bg-mist-dark"
+          )}
+        />
+      )}
 
       <div className="p-6">
         {/* Status badge */}

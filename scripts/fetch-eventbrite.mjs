@@ -19,7 +19,7 @@ const OUT = path.join(ROOT, "src", "data", "events-cache.json");
 const EB_ORG_ID = "2993744542028";
 const EB_URL =
   `https://www.eventbriteapi.com/v3/organizations/${EB_ORG_ID}/events/` +
-  `?expand=ticket_availability,venue&status=live,completed,started,ended`;
+  `?expand=ticket_availability,venue,logo&status=live,completed,started,ended`;
 
 function slugify(text) {
   return text
@@ -61,6 +61,7 @@ function mapEbEvent(e) {
     seats: e.capacity,
     status: mapStatus(e.status, isSoldOut),
     eventbriteUrl: e.url,
+    image: e.logo?.original?.url ?? e.logo?.url,
   };
 }
 

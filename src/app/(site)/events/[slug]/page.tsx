@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { getAllEvents, getEventBySlug } from "@/lib/events";
 import { EventCard } from "@/components/events/EventCard";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -116,6 +117,20 @@ export default async function EventPage({ params }: EventPageProps) {
           </p>
         </div>
       </section>
+
+      {/* Event image */}
+      {event.image && (
+        <div className="relative w-full aspect-[21/9] max-h-[480px] overflow-hidden bg-charcoal-800">
+          <Image
+            src={event.image}
+            alt={event.title}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        </div>
+      )}
 
       {/* Content */}
       <div className="bg-cream">
