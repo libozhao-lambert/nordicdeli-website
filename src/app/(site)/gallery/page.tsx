@@ -126,9 +126,6 @@ export default function GalleryPage() {
                   <p className="text-sm text-charcoal-600 leading-relaxed flex-1">
                     {article.description}
                   </p>
-                  <span className="mt-4 inline-block text-xs font-body text-charcoal-400 tracking-wide">
-                    Coming Soon
-                  </span>
                 </div>
               </article>
             ))}
