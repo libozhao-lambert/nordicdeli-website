@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { getAllEvents, getEventBySlug } from "@/lib/events";
 import { EventCard } from "@/components/events/EventCard";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildEventSchema } from "@/lib/schema/event";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { HeroImage } from "@/components/ui/HeroImage";
 
 interface EventPageProps {
   params: Promise<{ slug: string }>;
@@ -120,16 +120,7 @@ export default async function EventPage({ params }: EventPageProps) {
 
       {/* Event image */}
       {event.image && (
-        <div className="relative w-full aspect-[16/9] overflow-hidden bg-charcoal-800">
-          <Image
-            src={event.image}
-            alt={event.title}
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-        </div>
+        <HeroImage src={event.image} alt={event.title} priority />
       )}
 
       {/* Content */}
