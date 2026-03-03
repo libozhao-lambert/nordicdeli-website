@@ -49,7 +49,7 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: "33739f6db67284dfeea613414f006b2f"
+          accountId: "fb55fb1b71159b6ce416c04d38c882ae"
           command: deploy --keep-vars
 
       - name: Upload preview version (pull request)
@@ -57,5 +57,5 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: "33739f6db67284dfeea613414f006b2f"
+          accountId: "fb55fb1b71159b6ce416c04d38c882ae"
           command: versions upload
