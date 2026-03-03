@@ -73,7 +73,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
       await resend.emails.send({
         from: "hello@anchornetwork.ai",
-        to: "admin@thenordicdeli.com",
+        to: "tech@anchornetwork.ai",
         subject: `Reservation Cancelled: ${reservationId} — ${reservation.customer.name}`,
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">

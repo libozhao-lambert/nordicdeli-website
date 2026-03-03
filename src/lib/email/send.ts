@@ -5,7 +5,7 @@ import { ContactNotificationEmail } from "./templates/contact-notification";
 import type { Reservation } from "@/types/reservation";
 
 const FROM_ADDRESS = "hello@anchornetwork.ai";
-const OWNER_EMAIL = "admin@thenordicdeli.com";
+const OWNER_EMAIL = "tech@anchornetwork.ai";
 
 /**
  * Sends two emails for a new reservation:
