@@ -42,13 +42,13 @@ export function ReservationOwnerEmail({
 
   return (
     <Html lang="en">
-      <Preview>{`New reservation ${id} — ${customer.name}, ${people} ${people === 1 ? "person" : "people"} on ${dateStr}`}</Preview>
+      <Preview>{`ACTION REQUIRED — New reservation request ${id}: ${customer.name} (${customer.phone}), ${people} ${people === 1 ? "person" : "people"} on ${dateStr}`}</Preview>
       <Body style={body}>
         <Container style={container}>
           {/* Header */}
           <Section style={header}>
             <Heading style={headerHeading}>The Nordic Deli</Heading>
-            <Text style={headerSubtitle}>New Reservation Notification</Text>
+            <Text style={headerSubtitle}>New Reservation Request — Action Required</Text>
           </Section>
 
           {/* Booking ID */}
@@ -93,9 +93,16 @@ export function ReservationOwnerEmail({
             )}
           </Section>
 
+          {/* Call to action */}
+          <Section style={{ ...section, backgroundColor: "#faf4e6", borderTop: "1px solid #f0d8a8", borderBottom: "1px solid #f0d8a8" }}>
+            <Heading as="h2" style={{ ...sectionHeading, color: "#92400e" }}>Please call to confirm</Heading>
+            <Text style={{ ...value, fontSize: "22px", fontWeight: "700", color: "#1A1A1A" }}>{customer.phone}</Text>
+            <Text style={mutedText}>Let the guest know their table is confirmed, or suggest an alternative time.</Text>
+          </Section>
+
           {/* Cancel Action */}
           <Section style={{ ...section, textAlign: "center" as const }}>
-            <Text style={mutedText}>Need to cancel this reservation on behalf of the guest?</Text>
+            <Text style={mutedText}>Need to cancel this request on behalf of the guest?</Text>
             <Button href={cancelUrl} style={cancelButton}>
               Cancel Reservation
             </Button>

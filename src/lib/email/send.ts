@@ -40,7 +40,7 @@ export async function sendReservationEmails(params: {
   await resend.emails.send({
     from: FROM_ADDRESS,
     to: reservation.customer.email,
-    subject: `Your reservation at The Nordic Deli is confirmed — ${reservation.id}`,
+    subject: `We’ve received your reservation request — ${reservation.id}`,
     react: ReservationGuestEmail({ reservation, cancelUrl }),
   });
 }

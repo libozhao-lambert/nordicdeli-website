@@ -51,7 +51,7 @@ export function ReservationGuestEmail({
   return (
     <Html lang="en">
       <Preview>
-        Your table is booked, {customer.name.split(" ")[0]}! See you on {dateStr} at {timeStr}.
+        We&apos;ve received your reservation request, {customer.name.split(" ")[0]}. We&apos;ll call you to confirm.
       </Preview>
       <Body style={body}>
         <Container style={container}>
@@ -64,10 +64,10 @@ export function ReservationGuestEmail({
           {/* Confirmation message */}
           <Section style={heroSection}>
             <Heading as="h2" style={heroHeading}>
-              Your Table is Confirmed!
+              Request Received!
             </Heading>
             <Text style={heroText}>
-              Hej {customer.name.split(" ")[0]}! We&apos;re so looking forward to welcoming you. Here are your reservation details:
+              Hej {customer.name.split(" ")[0]}! We&apos;ve received your reservation request. Our team will call you on <strong>{customer.phone}</strong> to confirm your booking.
             </Text>
           </Section>
 
@@ -131,7 +131,7 @@ export function ReservationGuestEmail({
           {/* Hours note */}
           <Section style={{ padding: "0 40px 24px" }}>
             <Text style={infoText}>
-              We are open daily from <strong>6:30am to 2:30pm</strong>. We hold tables for up to 15 minutes after the reservation time.
+              We&apos;ll call you within business hours (<strong>6:30am – 2:30pm</strong>, Mon–Sun) to confirm your table. If we miss you, we&apos;ll leave a message.
             </Text>
           </Section>
 

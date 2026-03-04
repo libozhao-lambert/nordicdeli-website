@@ -60,11 +60,11 @@ function SuccessModal({ reservationId, onClose }: SuccessModalProps) {
             id="success-title"
             className="font-display text-2xl text-charcoal-800 mb-2"
           >
-            Reservation Confirmed!
+            Request Received!
           </h2>
           <p className="text-charcoal-600 mb-4">
-            Your table has been reserved. A confirmation email is on its way
-            with all the details and a link to cancel if your plans change.
+            We&apos;ve received your reservation request. Our team will call
+            you to confirm your table. Check your email for the details.
           </p>
           <div className="inline-block bg-cream rounded-xl px-6 py-3 border border-mist">
             <p className="text-xs text-charcoal-600 mb-1">Your booking reference</p>
@@ -294,7 +294,7 @@ export function ReservationForm() {
             className={inputClass}
           />
           <p className="mt-1 text-xs text-charcoal-600">
-            Your confirmation and cancellation link will be sent here.
+            Your request details and cancellation link will be sent here.
           </p>
         </div>
 
@@ -436,7 +436,7 @@ export function ReservationForm() {
           disabled={submitting || !tsToken}
           className="w-full py-4 bg-forest-600 text-white rounded-xl font-medium text-base hover:bg-forest-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 focus-visible:ring-offset-2"
         >
-          {submitting ? "Confirming your table…" : "Reserve My Table"}
+          {submitting ? "Submitting your request…" : "Request a Table"}
         </button>
       </form>
     </>

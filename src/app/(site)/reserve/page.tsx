@@ -27,9 +27,8 @@ export default function ReservePage() {
             Book Your Table
           </h1>
           <p className="text-charcoal-600 leading-relaxed max-w-lg mx-auto">
-            Reserve a table online in just a few moments. We hold your table for
-            15 minutes — a confirmation email with your booking details will
-            arrive shortly.
+            Submit your reservation request in just a few moments. Our team will
+            call you to confirm your table.
           </p>
         </div>
 
@@ -84,7 +83,7 @@ export default function ReservePage() {
                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
               />
             </svg>
-            Instant email confirmation
+            We&apos;ll call to confirm
           </div>
         </div>
 

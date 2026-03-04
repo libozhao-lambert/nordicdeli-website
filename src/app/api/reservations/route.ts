@@ -162,7 +162,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       startAt,
       durationMin: 90,
       note: data.note ?? "",
-      status: "confirmed",
+      status: "pending",
       meta: {
         ipHash: hashedIP,
         requestId,
@@ -193,7 +193,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 
     // 14. Return confirmation
-    return NextResponse.json({ id, status: "confirmed" }, { status: 201 });
+    return NextResponse.json({ id, status: "pending" }, { status: 201 });
   } catch (error) {
     console.error("Reservation POST error:", error);
     return NextResponse.json(
