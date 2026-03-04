@@ -26,8 +26,15 @@ const ITEM_IMAGES: Record<string, { src: string; alt: string }> = {
   },
 };
 
+const KANELSNURRE = {
+  id: "kanelsnurre",
+  name: "Kanelsnurre",
+  description: "Warm Nordic cinnamon swirl — a Scandinavian classic",
+  tags: ["VG"] as const,
+};
+
 export function FeaturedMenu() {
-  const featured = FEATURED_ITEMS.slice(0, 3);
+  const featured = [...FEATURED_ITEMS.slice(0, 2), KANELSNURRE];
 
   return (
     <section className="bg-white py-20 md:py-28" aria-labelledby="featured-heading">
