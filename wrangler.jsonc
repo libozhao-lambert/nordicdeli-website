@@ -32,7 +32,7 @@
     "NEXT_PUBLIC_SITE_URL": "https://nordicdeli-website.anchornetwork.workers.dev",
     "NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_CONTACT": "0x4AAAAAAClWAHs9hdnoQD4h",
     "NEXT_PUBLIC_CF_TURNSTILE_SITE_KEY_RESERVATIONS": "0x4AAAAAAClWHiNIPYAfYBna",
-    "CF_WEB_ANALYTICS_TOKEN": "54145cb266594144a72347363ead4a3c"
+    "CF_WEB_ANALYTICS_TOKEN": "0b1b9446d11c4da58dff49a4b061418f"
   }
   // Secrets (set via `wrangler secret put` — never in this file):
   // CF_TURNSTILE_SECRET_KEY_CONTACT
